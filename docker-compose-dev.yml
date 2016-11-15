@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  mysql:
+    ports:
+      - "3306:3306"
+
+  app:
+    environment: 
+      - NODE_ENV=development

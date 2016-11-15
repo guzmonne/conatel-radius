@@ -1,15 +1,23 @@
 import React from 'react'
-import Component from './Component.js'
+import LoginComponent from './Component.js'
+import Container from '../common/Container.js'
 
-class Login extends React.Component {
-  onLogin = ({username, password}) => {
-    console.log(username, password)
+const LoginContainerHoF = Component => class LoginContainer extends Container {
+  onLogin = (credentials) => {
+    this.isLoading()
+    this.post(credentials)
+    .then(res => {
+      this.isNotLoading()
+      console.log(res)
+    })
+    .catch(({error}) => this.withError(error))
   }
 
   render() {
-    const {onLogin} = this
-    return <Component {...{onLogin}} />
+    const {onLogin, state: {error, loading}} = this
+    return <Component {...{onLogin, error, loading}} />
   }
 }
 
-export default Login
+export default LoginContainerHoF(LoginComponent)
+export {LoginContainerHoF as Container}

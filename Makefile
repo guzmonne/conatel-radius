@@ -15,7 +15,7 @@ commit:
 	docker-compose build app
 	docker-compose up -d
 
-remove:
+rm:
 	docker-compose rm -f
 
 ps:
@@ -23,3 +23,12 @@ ps:
 
 logs:
 	docker-compose logs -f
+
+start:
+	cd ./app; npm run start
+
+serve:
+	cd ./app; npm run serve
+
+db:
+	docker-compose -f docker-compose.yml -f docker-compose-dev.yml up mysql

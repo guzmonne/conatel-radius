@@ -4,6 +4,7 @@ import {Form, Button} from 'semantic-ui-react'
 class LoginForm extends React.Component {
   static propTypes = {
     onSubmit: T.func.isRequired,
+    loading: T.bool,
   }
 
   static defaultProps = {
@@ -20,6 +21,8 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    const {loading} = this.props
+    console.log(loading)
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Input 
@@ -34,7 +37,7 @@ class LoginForm extends React.Component {
           name="password"
           placeholder="Contraseña"
         />
-        <Button type='submit'>Iniciar Sesión</Button>
+        <Button loading={loading} type='submit'>Iniciar Sesión</Button>
       </Form>
     )
   }
