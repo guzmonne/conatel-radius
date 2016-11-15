@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  freeradius:
+    build: ./freeradius
+    ports:
+      - "1812:1812/udp"
+      - "1813:1813/udp"
+    links: 
+      - mysql
+    restart: always
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=C0n4t3l
+    restart: always
+
+  app:
+    command: npm run serve
+    volumes: 
+      - ./app:/app
+    depends_on:
+      - mysql
+    build: ./app
+    ports:
+      - "5000:5000"
+    restart: always
