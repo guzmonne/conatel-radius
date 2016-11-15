@@ -9,13 +9,20 @@ module.exports = passport => {
    * Passport session setup
    */
   // Required to serialize the user for the session.
-  passport.serializeUser((user, done) => done(null, user.id))
+  passport.serializeUser((user, done) => {
+    console.log(user)
+    done(null, user.id)
+  })
   // Required to deserialize the user.
   passport.deserializeUser((id, done) => 
     db('users')
     .select()
     .where({id})
-    .then(rows => done(null, rows[0]))
+    .then(rows => {
+      const user = rows[0]
+      console.log(user)
+      done(null, user)
+    })
     .catch(err => done(err))
   )
   /**
@@ -24,7 +31,7 @@ module.exports = passport => {
   passport.use('local-signup', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
-  }, (username, password, done) => {
+  }, (req, username, password, done) => {
     // Find a user whose email is the same as the forms email.
     // We are checking to see if the user trying to login already exists.
     db('users')

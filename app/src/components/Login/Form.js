@@ -22,7 +22,6 @@ class LoginForm extends React.Component {
 
   render() {
     const {loading} = this.props
-    console.log(loading)
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Input 

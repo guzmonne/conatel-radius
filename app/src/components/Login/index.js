@@ -1,14 +1,16 @@
 import React from 'react'
 import LoginComponent from './Component.js'
 import Container from '../common/Container.js'
+import Cookie from 'js.cookie'
 
 const LoginContainerHoF = Component => class LoginContainer extends Container {
   onLogin = (credentials) => {
     this.isLoading()
     this.post(credentials)
-    .then(res => {
+    .then(user => {
       this.isNotLoading()
-      console.log(res)
+      Cookie.set('user', user)
+      this.props.router.replace('/')
     })
     .catch(({error}) => this.withError(error))
   }
@@ -20,4 +22,3 @@ const LoginContainerHoF = Component => class LoginContainer extends Container {
 }
 
 export default LoginContainerHoF(LoginComponent)
-export {LoginContainerHoF as Container}

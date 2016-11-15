@@ -3,6 +3,13 @@
 const auth = require('express').Router()
 
 exports = module.exports = passport => {
+  /**
+   * Authentication handler
+   * @param {Object} express res object.
+   * @param {Object} error   error object.
+   * @param {Object} user    user object.
+   * @return {Void}
+   */
   const authHandler = (res, error, user) => {
     if (error) {
       res.json({error})
@@ -12,6 +19,7 @@ exports = module.exports = passport => {
       res.json({error: {message: 'Invalid username or password', type: 'invalid'}})
       return
     }
+    const {username, id} = user
     res.json(user)
   }
   /**
@@ -26,5 +34,23 @@ exports = module.exports = passport => {
   auth.post('/signup', (req, res, next) => {
     passport.authenticate('local-signup', authHandler.bind(this, res))(req, res, next)
   })
+  /**
+   * Logout
+   */
+  auth.get('/logout', (req, res, next) => {
+    req.logout()
+    res.clearCookie('user')
+    res.redirect('/login')
+  })
+  /**
+   * Me
+   */
+  auth.get('/me', (req, res, next) => {
+    console.log(req.session)
+    res.json(req.user || null)
+  })
+  /**
+   * Return 
+   */
   return auth
 }
