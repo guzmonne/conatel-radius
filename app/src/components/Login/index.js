@@ -6,7 +6,7 @@ import Cookie from 'js.cookie'
 const LoginContainerHoF = Component => class LoginContainer extends Container {
   onLogin = (credentials) => {
     this.isLoading()
-    this.post(credentials)
+    this.post('/auth/login', credentials)
     .then(user => {
       this.isNotLoading()
       Cookie.set('user', user)

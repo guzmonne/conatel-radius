@@ -36,7 +36,7 @@ class LoginForm extends React.Component {
           name="password"
           placeholder="Contraseña"
         />
-        <Button loading={loading} type='submit'>Iniciar Sesión</Button>
+        <Button fluid loading={loading} type='submit'>Iniciar Sesión</Button>
       </Form>
     )
   }

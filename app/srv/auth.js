@@ -40,7 +40,7 @@ exports = module.exports = passport => {
   auth.get('/logout', (req, res, next) => {
     req.logout()
     res.clearCookie('user')
-    res.redirect('/login')
+    res.json({done: true})
   })
   /**
    * Me
