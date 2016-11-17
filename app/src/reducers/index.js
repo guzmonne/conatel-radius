@@ -1,7 +1,23 @@
 import merge from 'lodash/merge'
 import { combineReducers } from 'redux'
+import {reducer as form} from 'redux-form'
 import * as ActionTypes from '../actions'
-import radcheck from './radcheck.reducer.js'
+import rest from './rest.js'
+
+const radcheck = rest({
+  indexAction: ActionTypes.RADCHECK_INDEX_SUCCESS,
+})
+
+const users = rest({
+  indexAction: ActionTypes.USERS_INDEX_SUCCESS,
+  createAction: ActionTypes.USERS_CREATE_SUCCESS,
+  updateUiAction: ActionTypes.USERS_UPDATE_UI,
+}, {
+  ui: {
+    isOpenCreateModal: false,
+  }
+})
+
 /**
  * Updates an entity cache in response to any action with response.entities.
  * @param  {Object} state           List of cached collections.
@@ -25,8 +41,8 @@ const errorMessage = (state = null, action) => {
   const { type, error } = action
   if (type === ActionTypes.RESET_ERROR_MESSAGE) {
     return null
-  } else if (error) {
-    return action.error
+  } else if (error && error.error) {
+    return error.error // TODO: Improve error readability
   }
   return state
 }
@@ -74,9 +90,11 @@ const flags = (state = {}, action) => {
  */
 const rootReducer = combineReducers({
   entities,
-  error: errorMessage,
   flags,
+  form,
   radcheck,
+  users,
+  error: errorMessage,
 })
 
 export default rootReducer

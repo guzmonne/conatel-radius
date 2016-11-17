@@ -1,5 +1,6 @@
 import React, {PropTypes as T} from 'react'
 import {Table, Icon, Menu} from 'semantic-ui-react'
+import {camelize} from 'humps'
 
 const TableHoF = (headers, itemsPropTypes) => {
   const AppTable = ({onMore, loading, items}) => 
@@ -15,8 +16,8 @@ const TableHoF = (headers, itemsPropTypes) => {
       <Table.Body>
       {items.map((item, i) => 
         <Table.Row key={i}>
-        {headers.map(header => header.toLowerCase()).map(key => 
-          <Table.Cell key={key}>{item[key]}</Table.Cell>
+        {headers.map(header => camelize(header)).map(key => 
+          <Table.Cell key={key}>{item && item[key]}</Table.Cell>
         )}
         </Table.Row>
       )}

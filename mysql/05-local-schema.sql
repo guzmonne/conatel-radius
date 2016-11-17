@@ -3,6 +3,8 @@ USE local;
 
 CREATE TABLE users (
   id INT(8) NOT NULL auto_increment,
+  email VARCHAR(30),
+  phone VARCHAR(12),
   username VARCHAR(20) NOT NULL,
   password CHAR(60) NOT NULL,
   deleted TINYINT(1) DEFAULT NULL,

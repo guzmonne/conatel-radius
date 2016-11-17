@@ -1,9 +1,9 @@
-import RadpostauthTable, {IRadpostauthItems} from './RadpostauthTable.js'
-import RadcheckTable, {IRadcheckItems} from './RadcheckTable.js'
+import RadpostauthTable from './RadpostauthTable.js'
+import RadcheckTable from './RadcheckTable.js'
+import UsersTable from './UsersTable.js'
 
 export {
   RadpostauthTable,
-  IRadpostauthItems,
   RadcheckTable,
-  IRadcheckItems,
+  UsersTable,
 }

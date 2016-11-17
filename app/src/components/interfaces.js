@@ -16,3 +16,13 @@ export const IRadcheckItem = T.shape({
   value: T.string,
 })
 export const IRadcheckItems = T.arrayOf(IRadcheckItem)
+/** Users */
+export const IUserItem = T.shape({
+  id: T.number,
+  username: T.string,
+  createdAt: T.string,
+  updatedAt: T.string,
+  email: T.string,
+  phone: T.string,
+})
+export const IUserItems = T.arrayOf(IUserItem)

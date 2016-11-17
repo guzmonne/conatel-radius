@@ -2,7 +2,7 @@ import TableHoF from './TableHoF.js'
 import {IRadpostauthItems} from '../../interfaces.js'
 
 const RadpostauthTable = TableHoF([
-  'ID',
+  'Id',
   'Username',
   'Reply',
   'AuthDate'
