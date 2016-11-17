@@ -3,7 +3,7 @@ import {Router as ReactRouter, Route, IndexRoute, browserHistory} from 'react-ro
 import Cookie from 'js.cookie'
 import Login from './components/Login/'
 import Main from './components/Main/'
-import Dashboard from './components/Dashboard/'
+import Dashboard from './containers/Dashboard.js'
 import Signup from './components/Signup/'
 
 
