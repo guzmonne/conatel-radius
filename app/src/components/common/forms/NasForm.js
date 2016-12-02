@@ -21,7 +21,7 @@ const NasForm = ({handleSubmit, errorMessage, pristine, loading}) =>
       <label>Descripción</label>
       <Field name="description" component="input" placeholder='Descripción' type="text"/>
     </Form.Field>
-    <Button primary loading={loading} type='submit' disabled={pristine || loading}>Crear Nas</Button>
+    <Button primary loading={loading} type='submit' disabled={pristine || loading}>Crear cliente</Button>
   </Form>
 
 NasForm.propTypes = {

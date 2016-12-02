@@ -39,3 +39,12 @@ export const INasItem = T.shape({
   description: T.string,
 })
 export const INasItems = T.arrayOf(INasItem)
+/** SSIDs */
+export const ISSIDItem = T.shape({
+  id: T.number,
+  name: T.string,
+  vendor: T.string,
+  createdAt: T.string,
+  updatedAt: T.string,
+})
+export const ISSIDItems = T.arrayOf(ISSIDItem)

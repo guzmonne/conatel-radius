@@ -2,7 +2,7 @@ import React, {PropTypes as T} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {Form, Button, Message} from 'semantic-ui-react'
 
-const UserForm = ({handleSubmit, errorMessage, pristine, loading}) =>
+const AdminForm = ({handleSubmit, errorMessage, pristine, loading}) =>
   <Form error={!!errorMessage} loading={loading} onSubmit={handleSubmit}>
     <Message error content={errorMessage}/>
     <Form.Field>
@@ -25,17 +25,17 @@ const UserForm = ({handleSubmit, errorMessage, pristine, loading}) =>
       <label><Field name="role" component="input" type="radio" value="admin"/>{' Admin'}</label>
       <label><Field name="role" component="input" type="radio" value="ambassador"/>{' Guest Ambassador'}</label>  
     </Form.Field> 
-    <Button primary loading={loading} type='submit' disabled={pristine || loading}>Crear Usuario</Button>
+    <Button primary loading={loading} type='submit' disabled={pristine || loading}>Crear administrador</Button>
   </Form>
 
-UserForm.propTypes = {
+AdminForm.propTypes = {
   onSubmit: T.func.isRequired,
   loading: T.bool,
   errorMessage: T.string,
 }
 
-const UserReduxForm = reduxForm({
+const AdminReduxForm = reduxForm({
   form: 'user',
-})(UserForm)
+})(AdminForm)
 
-export default UserReduxForm
+export default AdminReduxForm

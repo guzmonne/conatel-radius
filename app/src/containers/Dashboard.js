@@ -7,4 +7,4 @@ class DashboardContainer extends React.Component {
   }
 }
 
-export default DashboardComponent
+export default DashboardContainer

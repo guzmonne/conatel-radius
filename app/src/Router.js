@@ -6,6 +6,7 @@ import Main from './components/Main/'
 import Dashboard from './containers/Dashboard.js'
 import Signup from './components/Signup/'
 import Nas from './containers/Nas.js'
+import SSID from './containers/SSID.js'
 import Admins from './containers/Admins.js'
 
 
@@ -25,6 +26,7 @@ class Router extends React.Component {
           <IndexRoute component={Dashboard}/>
           <Route path="signup" component={Signup}/>
           <Route path="nas" component={Nas}/>
+          <Route path="ssid" component={SSID}/>
           <Route path="admins" component={Admins}/>
         </Route>
       </ReactRouter>

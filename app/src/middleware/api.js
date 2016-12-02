@@ -46,12 +46,15 @@ const usersSchema = createSchema('users')
 const radcheckSchema = createSchema('radcheck')
 const radpostauthSchema = createSchema('radpostauth')
 const nasSchema = createSchema('nas')
+const ssidSchema = createSchema('ssid')
 /* EXPORT SCHEMAS */
 export const Schemas = {
   USER: usersSchema,
   USER_ARRAY: arrayOf(usersSchema),
   NAS: nasSchema,
   NAS_ARRAY: arrayOf(nasSchema),
+  SSID: ssidSchema,
+  SSID_ARRAY: arrayOf(ssidSchema),
   RADCHECK: radcheckSchema,
   RADCHECK_ARRAY: arrayOf(radcheckSchema),
   RADPOSTAUTH: radpostauthSchema,

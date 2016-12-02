@@ -43,7 +43,7 @@ class HiddenCell extends React.Component {
   render() {
     const {value} = this.props
     const {show} = this.state 
-    const {canShow, cantShow} = this 
+    const {canShow} = this 
     return (
       <Table.Cell>
         <span className={cx('pointer', 'disabled', {

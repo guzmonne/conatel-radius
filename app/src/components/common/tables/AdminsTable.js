@@ -1,7 +1,7 @@
 import TableHoF from './TableHoF.js'
 import {IUserItems} from '../../interfaces.js'
 
-const UsersTable = TableHoF([
+const AdminsTable = TableHoF([
   {name: 'Username'},
   {name: 'Email'},
   {name: 'Role'},
@@ -10,4 +10,4 @@ const UsersTable = TableHoF([
   {name: 'UpdatedAt', type: 'date', method: 'fromNow'},
 ], IUserItems)
 
-export default UsersTable
+export default AdminsTable

@@ -18,6 +18,16 @@ const nas = rest({
   }
 })
 
+const ssid = rest({
+  indexAction: ActionTypes.SSID_INDEX_SUCCESS,
+  createAction: ActionTypes.SSID_CREATE_SUCCESS,
+  updateUiAction: ActionTypes.SSID_UPDATE_UI,
+}, {
+  ui: {
+    isOpenCreateModal: false,
+  }
+})
+
 const users = rest({
   indexAction: ActionTypes.USERS_INDEX_SUCCESS,
   createAction: ActionTypes.USERS_CREATE_SUCCESS,
@@ -105,6 +115,7 @@ const rootReducer = combineReducers({
   radcheck,
   users,
   nas,
+  ssid,
   error: errorMessage,
 })
 
