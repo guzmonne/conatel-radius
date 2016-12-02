@@ -1,5 +1,10 @@
-import {Schemas, CALL_API} from '../middleware/api.js'
-import {createIndexAction, createUpdateUiAction} from './rest.actions.js'
+import {Schemas} from '../middleware/api.js'
+import {
+  createIndexAction,
+  createCreateAction,
+  createUpdateUiAction
+} from './rest.actions.js'
+
 /* USERS Index Action */
 export const USERS_INDEX_REQUEST = 'USERS_INDEX_REQUEST'
 export const USERS_INDEX_SUCCESS = 'USERS_INDEX_SUCCESS'
@@ -15,16 +20,10 @@ export const USERS_CREATE_REQUEST = 'USERS_CREATE_REQUEST'
 export const USERS_CREATE_SUCCESS = 'USERS_CREATE_SUCCESS'
 export const USERS_CREATE_ERROR = 'USERS_CREATE_ERROR'
 
-export const usersCreate = (user) => ({
-  [CALL_API]: {
-    types: [USERS_CREATE_REQUEST, USERS_CREATE_SUCCESS, USERS_CREATE_ERROR],
-    schema: Schemas.USER,
-    endpoint: '/api/users',
-    options: {
-      method: 'POST',
-      body: JSON.stringify(user)
-    }
-  }
+export const usersCreate = createCreateAction({
+  name: 'users',
+  types: [USERS_CREATE_REQUEST, USERS_CREATE_SUCCESS, USERS_CREATE_ERROR],
+  schema: Schemas.USER,
 })
 
 export const USERS_UPDATE_UI = 'USERS_UPDATE_UI' 

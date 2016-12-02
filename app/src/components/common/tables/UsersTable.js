@@ -2,12 +2,12 @@ import TableHoF from './TableHoF.js'
 import {IUserItems} from '../../interfaces.js'
 
 const UsersTable = TableHoF([
-  'Id',
-  'Username',
-  'Email',
-  'Phone',
-  'CreatedAt',
-  'UpdatedAt',
+  {name: 'Username'},
+  {name: 'Email'},
+  {name: 'Role'},
+  {name: 'Phone'},
+  {name: 'CreatedAt', type: 'date', method: 'fromNow'},
+  {name: 'UpdatedAt', type: 'date', method: 'fromNow'},
 ], IUserItems)
 
 export default UsersTable

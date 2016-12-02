@@ -1,23 +1,39 @@
 import React, {PropTypes as T} from 'react'
 import {Table, Icon, Menu} from 'semantic-ui-react'
 import {camelize} from 'humps'
+import moment from 'moment'
+import isString from 'lodash/isString'
 
-const TableHoF = (headers, itemsPropTypes) => {
-  const AppTable = ({onMore, loading, items}) => 
+
+const Cell = ({item, column: {name, type, method}}) => {
+  const key = camelize(name)
+  const value = item[key]
+  switch (type) {
+    case 'date': return <DateCell {...{value, method}}/>
+    default: return <Table.Cell>{value}</Table.Cell>
+  }
+}
+
+const DateCell = ({value, method}) => 
+  <Table.Cell>
+    {isString(method) && moment()[method] ? moment(value)[method]() : moment(value).format('DD/MM/YYYY')}
+  </Table.Cell>
+
+const TableHoF = (columns, itemsPropTypes) => {
+  const AppTable = ({onFetch, loading, items}) => 
     <Table celled>
       <Table.Header>
         <Table.Row>
-        {headers.map(header => 
-          <Table.HeaderCell key={header}>{header}</Table.HeaderCell>
+        {columns.map(column => column.name).map(name => 
+          <Table.HeaderCell key={name}>{name}</Table.HeaderCell>
         )}
         </Table.Row>
       </Table.Header>
-
       <Table.Body>
       {items.map((item, i) => 
         <Table.Row key={i}>
-        {headers.map(header => camelize(header)).map(key => 
-          <Table.Cell key={key}>{item && item[key]}</Table.Cell>
+        {columns.map((column, k) => 
+          <Cell key={`${i}.${k}`} item={item} column={column} />
         )}
         </Table.Row>
       )}
@@ -25,9 +41,9 @@ const TableHoF = (headers, itemsPropTypes) => {
 
       <Table.Footer>
       <Table.Row>
-        <Table.HeaderCell colSpan={`${headers.length}`}>
+        <Table.HeaderCell colSpan={`${columns.length}`}>
           <Menu floated='right' pagination>
-            <Menu.Item as='a' onClick={onMore}>
+            <Menu.Item as='a' onClick={onFetch}>
               {loading ? <Icon loading name='spinner' /> : 'Más resultados'}
             </Menu.Item>
           </Menu>
@@ -42,7 +58,7 @@ const TableHoF = (headers, itemsPropTypes) => {
     </Table>
 
   AppTable.propTypes = {
-    onMore: T.func,
+    onFetch: T.func,
     loading: T.bool,
     items: itemsPropTypes,
   }

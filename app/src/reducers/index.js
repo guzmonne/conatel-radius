@@ -8,6 +8,16 @@ const radcheck = rest({
   indexAction: ActionTypes.RADCHECK_INDEX_SUCCESS,
 })
 
+const nas = rest({
+  indexAction: ActionTypes.NAS_INDEX_SUCCESS,
+  createAction: ActionTypes.NAS_CREATE_SUCCESS,
+  updateUiAction: ActionTypes.NAS_UPDATE_UI,
+}, {
+  ui: {
+    isOpenCreateModal: false,
+  }
+})
+
 const users = rest({
   indexAction: ActionTypes.USERS_INDEX_SUCCESS,
   createAction: ActionTypes.USERS_CREATE_SUCCESS,
@@ -25,7 +35,7 @@ const users = rest({
  * @param  {Object} action.entities Normalizr result after normalizing response.
  * @return {Object} New reduced state.
  */
-const entities = (state = {radcheck: {}}, action) => {
+const entities = (state = {radcheck: {}, users: {}, nas: {}, radpostauth: {}}, action) => {
   if (action.response && action.response.entities)
     return merge({}, state, action.response.entities)
   return state
@@ -94,6 +104,7 @@ const rootReducer = combineReducers({
   form,
   radcheck,
   users,
+  nas,
   error: errorMessage,
 })
 

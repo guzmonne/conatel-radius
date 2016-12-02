@@ -2,7 +2,7 @@ import union from 'lodash/union'
 
 const defaultState = {
   ids: [],
-  limit: 1,
+  limit: 10,
   offset: 0,
   ui: {},
 }

@@ -30,7 +30,7 @@ const Component = ({onLogout, replace, children}) =>
           <Menu.Item name="networks" active={location.pathname === '/networks'} onClick={() => replace('/networks')}>
             Redes
           </Menu.Item>
-          <Menu.Item name="clients" active={location.pathname === '/clients'} onClick={() => replace('/clients')}>
+          <Menu.Item name="clients" active={location.pathname === '/nas'} onClick={() => replace('/nas')}>
             Clientes
           </Menu.Item>
           <Menu.Item name="admins" active={location.pathname === '/admins'} onClick={() => replace('/admins')}>

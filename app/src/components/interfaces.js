@@ -26,3 +26,16 @@ export const IUserItem = T.shape({
   phone: T.string,
 })
 export const IUserItems = T.arrayOf(IUserItem)
+/** Nas */
+export const INasItem = T.shape({
+  id: T.number,
+  nasname: T.string,
+  shortname: T.string,
+  type: T.string,
+  ports: T.number,
+  secret: T.string,
+  server: T.string,
+  community: T.string,
+  description: T.string,
+})
+export const INasItems = T.arrayOf(INasItem)

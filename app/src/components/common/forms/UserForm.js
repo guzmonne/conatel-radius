@@ -1,31 +1,37 @@
 import React, {PropTypes as T} from 'react'
 import {Field, reduxForm} from 'redux-form'
-import {Form, Button} from 'semantic-ui-react'
+import {Form, Button, Message} from 'semantic-ui-react'
 
-const UserForm = ({handleSubmit, pristine, loading}) =>
-  <Form onSubmit={handleSubmit}>
+const UserForm = ({handleSubmit, errorMessage, pristine, loading}) =>
+  <Form error={!!errorMessage} loading={loading} onSubmit={handleSubmit}>
+    <Message error content={errorMessage}/>
     <Form.Field>
       <label>Usuario</label>
-      <Field name="username" disabled={loading} component="input" placeholder='Usuario' type="text"/>
+      <Field name="username" component="input" placeholder='Usuario' type="text"/>
     </Form.Field>
     <Form.Field>
       <label>Email</label>
-      <Field name="email" disabled={loading} component="input" type="text" placeholder="Email" />
+      <Field name="email" component="input" type="text" placeholder="Email" />
     </Form.Field>
     <Form.Field>
       <label>Telefono</label>
-      <Field name="phone" disabled={loading} component="input" placeholder='Telefono' type="text"/>
+      <Field name="phone" component="input" placeholder='Telefono' type="text"/>
     </Form.Field>
     <Form.Field>
       <label>Contraseña</label>
-      <Field name="password" disabled={loading} component="input" placeholder='Contraseña' type="password"/>
+      <Field name="password" component="input" placeholder='Contraseña' type="password"/>
     </Form.Field>
+    <Form.Field>
+      <label><Field name="role" component="input" type="radio" value="admin"/>{' Admin'}</label>
+      <label><Field name="role" component="input" type="radio" value="ambassador"/>{' Guest Ambassador'}</label>  
+    </Form.Field> 
     <Button primary loading={loading} type='submit' disabled={pristine || loading}>Crear Usuario</Button>
   </Form>
 
 UserForm.propTypes = {
   onSubmit: T.func.isRequired,
   loading: T.bool,
+  errorMessage: T.string,
 }
 
 const UserReduxForm = reduxForm({
