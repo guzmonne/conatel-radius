@@ -53,6 +53,22 @@ const index = (db, table, select, req, res) => {
   // Execute db call.
   return callIndex(dbCall, req, res)
 }
+
+const create = (db, table, values, requiredKeys, req, res) => {
+  required || (required = [])
+  const body = _.pick(req.body, values)
+  _.each(requiredKeys, key => {
+    if(!_.has(body, key)) 
+      return res.status(400).json({error: `${key} is required`})
+  })
+  radius(table)
+  .insert(body)
+  .then(ids => {
+    body.id = ids[0]
+    res.json(body)
+  })
+  .catch(err => res.status(400).json({error: err.message}))
+}
 /**
  * Gets the user from the req object. Responds with an error if the
  * username or the password is invalid.
@@ -90,18 +106,10 @@ api.get('/radpostauth', index.bind(null, radius, 'radpostauth', radpostauthField
 /** RADCHECK */
 api.get('/radcheck', index.bind(null, radius, 'radcheck', null))
 /** NAS */
+const nasFields = ['nasname', 'shortname', 'secret', 'description']
+const requiredNasFields = ['nasname']
 api.get('/nas', index.bind(null, radius, 'nas', null))
-api.post('/nas', (req, res) => {
-  const nas = _.pick(req.body, 'nasname', 'shortname', 'secret', 'description')
-  if (!nas.nasname) res.status(400).json({error: '"nasname" is required.'})
-  radius('nas')
-  .insert(nas)
-  .then(ids => {
-    nas.id = ids[0]
-    res.json(nas)
-  })
-  .catch(err => res.status(400).json({error: err.message}))
-})
+api.post('/nas', create.bind(null, radius, 'nas', nasFields, requiredNasFields))
 /** ADMINS */
 const adminsFields = ['username', 'email', 'id', 'phone', 'createdAt', 'updatedAt']
 api.get('/admins', (req, res) => {
@@ -148,6 +156,9 @@ api.post('/admins', (req, res) => {
   })
 })
 /** SSID */
-api.get('/')
+const ssidsFields = ['name', 'vendor']
+const requiredSsidsFields = []
+api.get('/ssid', index.bind(null, local, 'ssids', null))
+api.post('/ssid', create.bind(null, local, 'ssids', ssidsFields, requiredSsidsFields))
 
 exports = module.exports = api
