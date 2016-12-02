@@ -4,7 +4,7 @@ import {INasItems} from '../../interfaces.js'
 const NasTable = TableHoF([
   {name: 'Nasname'},
   {name: 'Shortname'},
-  {name: 'Secret'},
+  {name: 'Secret', type: 'hidden'},
   {name: 'Description'},
 ], INasItems)
 

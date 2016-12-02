@@ -3,6 +3,7 @@ import {Table, Icon, Menu} from 'semantic-ui-react'
 import {camelize} from 'humps'
 import moment from 'moment'
 import isString from 'lodash/isString'
+import cx from 'classnames'
 
 
 const Cell = ({item, column: {name, type, method}}) => {
@@ -10,7 +11,51 @@ const Cell = ({item, column: {name, type, method}}) => {
   const value = item[key]
   switch (type) {
     case 'date': return <DateCell {...{value, method}}/>
+    case 'hidden': return <HiddenCell {...{value}}/>
     default: return <Table.Cell>{value}</Table.Cell>
+  }
+}
+
+class HiddenCell extends React.Component { 
+  state = {
+    show: false
+  }
+
+  timer = null
+
+  timeout = 3000
+
+  componentWillUnmount() {
+    if (this.timer && this.timer.clearTimeout)
+      this.timer.clearTimeout()
+  }
+
+  canShow = () => {
+    this.timer = setTimeout(this.cantShow, this.timeout)    
+    this.setState({show: true})
+  }
+
+  cantShow = () => {
+    this.timer = false
+    this.setState({show: false})
+  }
+  
+  render() {
+    const {value} = this.props
+    const {show} = this.state 
+    const {canShow, cantShow} = this 
+    return (
+      <Table.Cell>
+        <span className={cx('pointer', 'disabled', {
+          'active-to-disabled': show
+        })}
+          onClick={canShow}
+        >
+          <Icon name={show ? 'unhide' : 'hide'} color={show ? 'blue' : 'black'}/>        
+        </span>
+        <span>{show ? value : ''}</span>
+      </Table.Cell>
+    )
   }
 }
 
