@@ -28,3 +28,13 @@ CREATE TABLE user_roles (
   userid INT(8) NOT NULL,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE ssids (
+  id INT(8) NOT NULL auto_increment,
+  name VARCHAR(30) NOT NULL,
+  vendor VARCHAR(20),
+  description VARCHAR(60),
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+);

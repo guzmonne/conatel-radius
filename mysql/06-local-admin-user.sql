@@ -14,3 +14,11 @@ INSERT into roles (role, description) values (
 );
 
 INSERT into user_roles (role, userId) values ('admin', 1);
+
+INSERT into ssids (name, vendor) values (
+  'Meraki Preventa', 'Meraki'
+), (
+  'WiFi Contatel', 'Meraki'
+), (
+  'WiFi vWLC', 'Cisco'
+);
