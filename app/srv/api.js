@@ -55,13 +55,13 @@ const index = (db, table, select, req, res) => {
 }
 
 const create = (db, table, values, requiredKeys, req, res) => {
-  required || (required = [])
+  requiredKeys || (requiredKeys = [])
   const body = _.pick(req.body, values)
   _.each(requiredKeys, key => {
     if(!_.has(body, key)) 
       return res.status(400).json({error: `${key} is required`})
   })
-  radius(table)
+  db(table)
   .insert(body)
   .then(ids => {
     body.id = ids[0]
