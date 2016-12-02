@@ -1,5 +1,6 @@
 import { Schema, arrayOf, normalize } from 'normalizr'
 import isString from 'lodash/isString'
+import isEmpty from 'lodash/isEmpty'
 // Action key that carries the call info by this Redux middleware
 export const CALL_API = Symbol('Call API')
 /**
@@ -19,11 +20,13 @@ const callApi = (endpoint, schema, options={}) => {
     },
   }, options)
   return fetch(endpoint, params)
-  .then(response => response.json().then(json => {
-    if (!response.ok)
-      return Promise.reject(json)
-    return Object.assign({}, normalize(json, schema))
-  }))
+  .then(response => response.json()
+    .then(json => {
+      if (!response.ok)
+        return Promise.reject(json)
+      return Object.assign({}, normalize(json, schema))
+    })
+  )
 }
 /**
  * Schemas
@@ -105,8 +108,12 @@ export default store => next => action => {
     response,
     type: successType,
   })))
-  .catch(error => next(actionWith({
-    error,
-    type: failureType,
-  })))
+  .catch(error => {
+    if (isEmpty(error))
+      error = '[404] Not Found'
+    next(actionWith({
+      error,
+      type: failureType,
+    }))
+  })
 }
