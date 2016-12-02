@@ -28,10 +28,10 @@ const ssid = rest({
   }
 })
 
-const users = rest({
-  indexAction: ActionTypes.USERS_INDEX_SUCCESS,
-  createAction: ActionTypes.USERS_CREATE_SUCCESS,
-  updateUiAction: ActionTypes.USERS_UPDATE_UI,
+const admins = rest({
+  indexAction: ActionTypes.ADMINS_INDEX_SUCCESS,
+  createAction: ActionTypes.ADMINS_CREATE_SUCCESS,
+  updateUiAction: ActionTypes.ADMINS_UPDATE_UI,
 }, {
   ui: {
     isOpenCreateModal: false,
@@ -45,7 +45,7 @@ const users = rest({
  * @param  {Object} action.entities Normalizr result after normalizing response.
  * @return {Object} New reduced state.
  */
-const entities = (state = {radcheck: {}, users: {}, nas: {}, radpostauth: {}}, action) => {
+const entities = (state = {radcheck: {}, admins: {}, nas: {}, radpostauth: {}}, action) => {
   if (action.response && action.response.entities)
     return merge({}, state, action.response.entities)
   return state
@@ -113,7 +113,7 @@ const rootReducer = combineReducers({
   flags,
   form,
   radcheck,
-  users,
+  admins,
   nas,
   ssid,
   error: errorMessage,

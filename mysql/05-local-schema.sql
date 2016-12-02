@@ -1,7 +1,7 @@
 CREATE DATABASE local;
 USE local;
 
-CREATE TABLE users (
+CREATE TABLE admins (
   id INT(8) NOT NULL auto_increment,
   email VARCHAR(30),
   phone VARCHAR(20),

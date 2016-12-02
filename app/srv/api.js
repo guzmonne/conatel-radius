@@ -60,7 +60,7 @@ const index = (db, table, select, req, res) => {
  * @param  {Object} res  Express res object.
  * @return {Object} User object.
  */
-const getUser = (req, res) => {
+const getAdmin = (req, res) => {
   const user = _.pick(req.body, 'username', 'password', 'email', 'phone')
   if (!user.username)
     return res.status(400).json({error: '"username" can\'t be undefined'})
@@ -102,35 +102,35 @@ api.post('/nas', (req, res) => {
   })
   .catch(err => res.status(400).json({error: err.message}))
 })
-/** USERS */
-const usersFields = ['username', 'email', 'id', 'phone', 'createdAt', 'updatedAt']
-api.get('/users', (req, res) => {
-  const dbCall = getIndexDbCall(local, 'users', null, req, res)
-  .join('user_roles', 'users.id', '=', 'user_roles.userid')
-  .select(usersFields.map(f => 'users.' + f).concat('user_roles.role'))
+/** ADMINS */
+const adminsFields = ['username', 'email', 'id', 'phone', 'createdAt', 'updatedAt']
+api.get('/admins', (req, res) => {
+  const dbCall = getIndexDbCall(local, 'admins', null, req, res)
+  .join('user_roles', 'admins.id', '=', 'user_roles.userid')
+  .select(adminsFields.map(f => 'admins.' + f).concat('user_roles.role'))
   // Execute the db call
   callIndex(dbCall, req, res)
 })
-api.post('/users', (req, res) => {
-  let user = getUser(req, res)
+api.post('/admins', (req, res) => {
+  let admin = getAdmin(req, res)
   const role = req.body.role
   local.transaction(trx => local
     .select()
-    .where({username: user.username})
-    .from('users')
+    .where({username: admin.username})
+    .from('admins')
     .transacting(trx)
-    .then(rows => { // Gets possible existing users from db.
+    .then(rows => { // Gets possible existing admins from db.
       // If rows is not empty then the user exists.
       if (rows.length > 0)
         throw new Error('"username" already exists')
       // Else we continue with the user creation.
-      user.password = bcrypt.hashSync(user.password, null, null)
-      return local.insert(user).into('users').transacting(trx)
+      admin.password = bcrypt.hashSync(admin.password, null, null)
+      return local.insert(admin).into('admins').transacting(trx)
     })
     .then(ids => { // User insert successful.
       const id = ids[0]
-      user = setUser(id, user)
-      // Add the user role to the db. The role is taken from req.
+      admin = setUser(id, admin)
+      // Add the admin role to the db. The role is taken from req.
       return local.insert({userid: id, role: role}).into('user_roles').transacting(trx)
     })
     .then(trx.commit)
@@ -138,14 +138,16 @@ api.post('/users', (req, res) => {
   )
   .then(inserts => {
     console.log(inserts.length + ' user(s) saved.')
-    user.role = role
-    res.json(user)
+    admin.role = role
+    res.json(admin)
   })
   .catch(error => {
-    console.log('An error occurred inside the user creation transaction')
+    console.log('An error occurred inside the admin creation transaction')
     console.log(error.message)
     res.status(400).json({error: error.message})
   })
 })
+/** SSID */
+api.get('/')
 
 exports = module.exports = api

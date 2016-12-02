@@ -42,15 +42,15 @@ const getID = item => item.id
  */
 const createSchema = (name) => new Schema(name, {idAttribute: getID})
 /** SCHEMAS */
-const usersSchema = createSchema('users')
+const adminsSchema = createSchema('admins')
 const radcheckSchema = createSchema('radcheck')
 const radpostauthSchema = createSchema('radpostauth')
 const nasSchema = createSchema('nas')
 const ssidSchema = createSchema('ssid')
 /* EXPORT SCHEMAS */
 export const Schemas = {
-  USER: usersSchema,
-  USER_ARRAY: arrayOf(usersSchema),
+  ADMIN: adminsSchema,
+  ADMIN_ARRAY: arrayOf(adminsSchema),
   NAS: nasSchema,
   NAS_ARRAY: arrayOf(nasSchema),
   SSID: ssidSchema,
