@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import {reducer as form} from 'redux-form'
 import * as ActionTypes from '../actions'
 import rest from './rest.js'
+import isString from 'lodash/isString'
 
 const radcheck = rest({
   indexAction: ActionTypes.RADCHECK_INDEX_SUCCESS,
@@ -61,6 +62,8 @@ const errorMessage = (state = null, action) => {
   const { type, error } = action
   if (type === ActionTypes.RESET_ERROR_MESSAGE) {
     return null
+  } else if (isString(error)) {
+    return error
   } else if (error && error.error) {
     return error.error // TODO: Improve error readability
   }
