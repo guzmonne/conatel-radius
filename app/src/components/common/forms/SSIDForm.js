@@ -10,8 +10,8 @@ const SSIDForm = ({handleSubmit, errorMessage, pristine, loading}) =>
       <Field name="name" component="input" placeholder='Nombre' type="text"/>
     </Form.Field>
     <Form.Field>
-      <label>Vendor</label>
-      <Field name="vendor" component="input" type="text" placeholder="Vendor" />
+      <label>Fabricante</label>
+      <Field name="vendor" component="input" type="text" placeholder="Fabricante" />
     </Form.Field>
     <Button primary loading={loading} type='submit' disabled={pristine || loading}>Crear SSID</Button>
   </Form>
