@@ -69,7 +69,7 @@ const TableHoF = (columns, itemsPropTypes) => {
     <Table celled>
       <Table.Header>
         <Table.Row>
-        {columns.map(column => column.name).map(name => 
+        {columns.map(column => column.alias ? column.alias : column.name).map(name => 
           <Table.HeaderCell key={name}>{name}</Table.HeaderCell>
         )}
         </Table.Row>
